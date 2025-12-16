@@ -236,3 +236,75 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Плавное появление контента
     document.body.classList.add('fade-in');
 });
+// Обновление инвентаря
+function updateInventory() {
+    if (!currentUser) return;
+
+    const balanceEl = document.getElementById('balance-display');
+    const purchasedEl = document.getElementById('purchased-items');
+    const rewardsEl = document.getElementById('rewards-items');
+
+    if (balanceEl) balanceEl.textContent = currentUser.coins;
+
+    if (purchasedEl) {
+        if (!currentUser.purchased || currentUser.purchased.length === 0) {
+            purchasedEl.innerHTML = '<p>Пока ничего не куплено.</p>';
+        } else {
+            purchasedEl.innerHTML = currentUser.purchased.map(item => `
+                <div class="item">
+                    <img src="${getProductImage(item.name)}" alt="${item.name}" style="width: 50px; vertical-align: middle;">
+                    <span>${item.name} — ${item.price} монет (${item.date})</span>
+                </div>
+            `).join('');
+        }
+    }
+
+    if (rewardsEl) {
+        if (!currentUser.rewards || currentUser.rewards.length === 0) {
+            rewardsEl.innerHTML = '<p>Пока нет наград.</p>';
+        } else {
+            rewardsEl.innerHTML = currentUser.rewards.map(reward => `
+                <div class="item">
+                    <img src="${reward.image || 'images/coins/coin.png'}" alt="${reward.name}" style="width: 50px; vertical-align: middle;">
+                    <span>${reward.name} — ${reward.description || ''} (${reward.date})</span>
+                </div>
+            `).join('');
+        }
+    }
+}
+
+// Получить изображение товара по имени
+function getProductImage(name) {
+    const product = products.find(p => p.name === name);
+    return product ? product.image : 'images/coins/coin.png';
+}
+
+// Добавляем вызов в updateUserUI
+function updateUserUI() {
+    if (!currentUser) return;
+
+    document.getElementById('user-login').textContent = currentUser.login;
+    document.getElementById('user-rank').textContent = getRankName(currentUser.rank);
+    document.getElementById('user-coins').textContent = currentUser.coins;
+    document.getElementById('user-info').style.display = 'block';
+
+    // Обновляем все страницы
+    if (document.getElementById('balance-display')) {
+        document.getElementById('balance-display').textContent = currentUser.coins;
+    }
+    if (document.getElementById('user-coins')) {
+        document.getElementById('user-coins').textContent = currentUser.coins;
+    }
+
+    // Обновляем инвентарь
+    if (window.location.pathname.includes('inventory.html')) {
+        updateInventory();
+    }
+}
+
+// Добавляем обработчик для инвентаря
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname.includes('inventory.html')) {
+        updateInventory();
+    }
+});
