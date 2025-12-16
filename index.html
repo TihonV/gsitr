@@ -3,84 +3,1052 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-text="site_title">🎄 Новогоднее Приключение 2026</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/main.js" defer></script>
+    <title>🎄 Новогоднее Приключение 2026</title>
+    <style>
+        /* Стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 60px;
+            background: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .icon {
+            margin: 15px 0;
+            font-size: 24px;
+            color: white;
+        }
+
+        .sidebar .icon a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar .icon a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .content {
+            margin-left: 60px;
+            padding: 20px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .content {
+                margin-left: 0;
+            }
+        }
+
+        header {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        .user-info {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #e05a5a;
+        }
+
+        .hero {
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1511697525813-386d1475445e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') no-repeat center center;
+            background-size: cover;
+            padding: 50px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .snow-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.gifer.com/origin/8c/8c9f8e1e1e1e1e1e1e1e1e1e1e1e1e1e.gif') repeat;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .info-columns {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .column {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .column h3 {
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+
+        .admins-online {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .admins-online h3 {
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .login-container button:hover {
+            background: #e05a5a;
+        }
+
+        .error {
+            background: #ffcccc;
+            color: #cc0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            margin: 10px 0;
+            color: #ff6b6b;
+        }
+
+        .product-card .price {
+            font-weight: bold;
+            color: #e74c3c;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .product-card button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .product-card button:hover {
+            background: #e05a5a;
+        }
+
+        .roulette-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .wheel-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        #wheel {
+            width: 100%;
+            height: 100%;
+            transform-origin: 50% 50%;
+            transition: transform 5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ff6b6b;
+            z-index: 10;
+        }
+
+        .cost {
+            font-size: 18px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        #spin-button {
+            padding: 12px 24px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #spin-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #ff6b6b;
+        }
+
+        .inventory-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .inventory-section h2 {
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+
+        .items-list {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+
+        .items-list p {
+            color: #666;
+            text-align: center;
+        }
+
+        .settings-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .settings-form label {
+            display: block;
+            margin: 15px 0;
+        }
+
+        .settings-form input[type="text"],
+        .settings-form input[type="color"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .settings-form button {
+            width: 100%;
+            padding: 12px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .telegram-chat {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .mobile-layout .content {
+            margin-left: 0;
+        }
+
+        .mobile-layout .sidebar {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            .info-columns {
+                flex-direction: column;
+            }
+
+            .products-grid,
+            .inventory-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="fade-in">
     <!-- Боковое меню -->
     <aside class="sidebar">
-        <div class="icon">
-            <a href="index.html" title="Главная">
-                <img src="images/icons/home.png" alt="Главная" />
-            </a>
-        </div>
-        <div class="icon">
-            <a href="shop.html" title="Магазин">
-                <img src="images/icons/shop.png" alt="Магазин" />
-            </a>
-        </div>
-        <div class="icon">
-            <a href="inventory.html" title="Инвентарь">
-                <img src="images/icons/tasks.png" alt="Инвентарь" />
-            </a>
-        </div>
-        <div class="icon">
-            <a href="roulette.html" title="Рулетка">
-                <img src="images/icons/chat.png" alt="Рулетка" />
-            </a>
-        </div>
-        <div class="icon">
-            <a href="settings.html" title="Настройки">
-                <img src="images/icons/settings.png" alt="Настройки" />
-            </a>
-        </div>
+        <div class="icon"><a href="#home" onclick="showSection('home')" title="Главная"><img src="https://via.placeholder.com/32/ffffff/333333?text=🏠" alt="Главная"></a></div>
+        <div class="icon"><a href="#shop" onclick="showSection('shop')" title="Магазин"><img src="https://via.placeholder.com/32/ffffff/333333?text=🎁" alt="Магазин"></a></div>
+        <div class="icon"><a href="#inventory" onclick="showSection('inventory')" title="Инвентарь"><img src="https://via.placeholder.com/32/ffffff/333333?text=📦" alt="Инвентарь"></a></div>
+        <div class="icon"><a href="#roulette" onclick="showSection('roulette')" title="Рулетка"><img src="https://via.placeholder.com/32/ffffff/333333?text=🎯" alt="Рулетка"></a></div>
+        <div class="icon"><a href="#settings" onclick="showSection('settings')" title="Настройки"><img src="https://via.placeholder.com/32/ffffff/333333?text=⚙️" alt="Настройки"></a></div>
     </aside>
 
     <!-- Основной контент -->
     <main class="content">
-        <header>
-            <h1 id="site-title" data-text="site_title">🎄 Новогоднее Приключение 2026</h1>
-            <div class="user-info" id="user-info">
-                Привет, <span id="user-login">Гость</span> | 
-                Ранг: <span id="user-rank">Новичок</span> | 
-                <span id="user-coins">0</span> монет
-            </div>
-        </header>
+        <!-- Главная страница -->
+        <section id="home" class="page">
+            <header>
+                <h1>🎄 Новогоднее Приключение 2026</h1>
+                <div class="user-info" id="user-info">
+                    Привет, <span id="user-login">Гость</span> | 
+                    Ранг: <span id="user-rank">Новичок</span> | 
+                    <span id="user-coins">0</span> монет
+                </div>
+            </header>
 
-        <!-- Герой-блок с таймером -->
-        <section class="hero">
-            <div class="snow-bg"></div>
-            <h2 id="welcome-message" data-text="welcome_message">
-                Добро пожаловать!
-            </h2>
-            <div id="countdown" class="countdown">Загрузка...</div>
+            <section class="hero">
+                <div class="snow-bg"></div>
+                <h2>Добро пожаловать!</h2>
+                <div id="countdown" class="countdown">Загрузка...</div>
+            </section>
+
+            <section class="info-columns">
+                <div class="column">
+                    <h3>Магазин подарков</h3>
+                    <p>Покупайте подарки за монеты.</p>
+                    <button onclick="showSection('shop')" class="btn">Перейти в магазин →</button>
+                </div>
+                <div class="column">
+                    <h3>Рулетка призов</h3>
+                    <p>Крутите колесо за 150 монет!</p>
+                    <button onclick="showSection('roulette')" class="btn">Крутить рулетку →</button>
+                </div>
+                <div class="column">
+                    <h3>Инвентарь</h3>
+                    <p>Просмотрите награды и покупки.</p>
+                    <button onclick="showSection('inventory')" class="btn">Открыть инвентарь →</button>
+                </div>
+            </section>
+
+            <section class="admins-online">
+                <h3>Администраторы онлайн:</h3>
+                <p>admin</p>
+            </section>
         </section>
 
-        <!-- Быстрые ссылки -->
-        <section class="info-columns">
-            <div class="column">
-                <h3 data-text="shop_title">Магазин подарков</h3>
-                <p>Покупайте подарки за монеты.</p>
-                <a href="shop.html" class="btn">Перейти в магазин →</a>
-            </div>
-            <div class="column">
-                <h3 data-text="roulette_title">Рулетка призов</h3>
-                <p>Крутите колесо за 150 монет!</p>
-                <a href="roulette.html" class="btn">Крутить рулетку →</a>
-            </div>
-            <div class="column">
-                <h3 data-text="inventory_title">Инвентарь</h3>
-                <p>Просмотрите награды и покупки.</p>
-                <a href="inventory.html" class="btn">Открыть инвентарь →</a>
+        <!-- Страница входа -->
+        <section id="login" class="page" style="display:none;">
+            <div class="login-container">
+                <h2>Вход / Регистрация</h2>
+                <form id="login-form">
+                    <input type="text" id="login-input" placeholder="Логин" required>
+                    <input type="password" id="password-input" placeholder="Пароль" required>
+                    <button type="submit" id="login-btn">Войти</button>
+                    <button type="button" id="register-btn">Зарегистрироваться</button>
+                </form>
+                <div id="error-message" class="error"></div>
             </div>
         </section>
 
-        <!-- Админы онлайн -->
-        <section class="admins-online" id="admins-online">
-            <h3 data-text="admin_online">Администраторы онлайн:</h3>
-            <p>Загрузка...</p>
+        <!-- Магазин подарков -->
+        <section id="shop" class="page" style="display:none;">
+            <header>
+                <h1>Магазин подарков</h1>
+                <div class="user-info" id="user-info-shop">
+                    Привет, <span id="user-login-shop">Гость</span> | 
+                    <span id="user-coins-shop">0</span> монет
+                </div>
+            </header>
+
+            <div class="filters">
+                <select id="sort-select">
+                    <option value="price-asc">Цена: по возрастанию</option>
+                    <option value="price-desc">Цена: по убыванию</option>
+                    <option value="name">По названию</option>
+                </select>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Товары будут добавлены через JS -->
+            </div>
+        </section>
+
+        <!-- Инвентарь -->
+        <section id="inventory" class="page" style="display:none;">
+            <header>
+                <h1>Инвентарь</h1>
+                <div class="user-info" id="user-info-inventory">
+                    Привет, <span id="user-login-inventory">Гость</span> | 
+                    <span id="user-coins-inventory">0</span> монет
+                </div>
+            </header>
+
+            <div class="inventory-section">
+                <h2>Баланс монет:</h2>
+                <div id="balance-display">0</div>
+
+                <h2>Купленные предметы:</h2>
+                <div id="purchased-items" class="items-list">
+                    <p>Пока ничего не куплено.</p>
+                </div>
+
+                <h2>Награды от админа:</h2>
+                <div id="rewards-items" class="items-list">
+                    <p>Пока нет наград.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Рулетка призов -->
+        <section id="roulette" class="page" style="display:none;">
+            <header>
+                <h1>Рулетка призов</h1>
+                <div class="user-info" id="user-info-roulette">
+                    Привет, <span id="user-login-roulette">Гость</span> | 
+                    <span id="user-coins-roulette">0</span> монет
+                </div>
+            </header>
+
+            <div class="roulette-container">
+                <div class="wheel-wrapper">
+                    <img src="https://via.placeholder.com/300/ffffff/333333?text=Wheel" alt="Колесо" id="wheel">
+                    <div class="pointer"></div>
+                </div>
+                <div class="cost">Стоимость вращения: 150 монет</div>
+                <button id="spin-button" disabled>Крутить за 150 монет</button>
+                <div id="result" class="result"></div>
+            </div>
+        </section>
+
+        <!-- Настройки -->
+        <section id="settings" class="page" style="display:none;">
+            <header>
+                <h1>Настройки</h1>
+                <div class="user-info" id="user-info-settings">
+                    Привет, <span id="user-login-settings">Гость</span>
+                </div>
+            </header>
+
+            <div class="settings-form">
+                <label>
+                    Цветовая схема:
+                    <input type="color" id="theme-color" value="#ff6b6b">
+                </label>
+                <label>
+                    Telegram ник:
+                    <input type="text" id="telegram-handle" value="@skywakker">
+                </label>
+                <label>
+                    <input type="checkbox" id="mobile-layout"> Мобильная раскладка
+                </label>
+                <button id="save-settings">Сохранить</button>
+            </div>
+        </section>
+
+        <!-- Чат с админом -->
+        <section id="chat" class="page" style="display:none;">
+            <header>
+                <h1>Чат с админом</h1>
+                <div class="user-info" id="user-info-chat">
+                    Привет, <span id="user-login-chat">Гость</span>
+                </div>
+            </header>
+
+            <div class="telegram-chat">
+                <iframe src="https://t.me/skywakker" width="100%" height="600px" frameborder="0"></iframe>
+            </div>
         </section>
     </main>
+
+    <script>
+        // Глобальные переменные
+        let currentUser = null;
+        let products = [
+            {
+                id: 1,
+                name: "FC Pack",
+                description: "Случайный набор футбольных карточек FIFA 23",
+                price: 1,
+                image: "https://www.futwiz.com/assets/images/fifa23/packs/gold.png"
+            },
+            {
+                id: 2,
+                name: "Новогодний шар",
+                description: "Красивый шар для ёлки",
+                price: 10,
+                image: "https://via.placeholder.com/250/ffffff/333333?text=Ball"
+            },
+            {
+                id: 3,
+                name: "Подарочная коробка",
+                description: "Коробка с сюрпризом",
+                price: 25,
+                image: "https://via.placeholder.com/250/ffffff/333333?text=Box"
+            }
+        ];
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            // Проверяем, есть ли пользователь в sessionStorage
+            const userStr = sessionStorage.getItem('user');
+            if (userStr) {
+                currentUser = JSON.parse(userStr);
+                updateUserUI();
+            }
+
+            // Запускаем таймер
+            updateCountdown();
+
+            // Обновляем админов онлайн
+            updateAdminsOnline();
+            setInterval(updateAdminsOnline, 30000);
+
+            // Устанавливаем обработчики событий
+            setupEventListeners();
+
+            // Показываем главную страницу
+            showSection('home');
+        });
+
+        // Обновление UI
+        function updateUserUI() {
+            if (!currentUser) return;
+
+            const loginEl = document.getElementById('user-login');
+            const rankEl = document.getElementById('user-rank');
+            const coinsEl = document.getElementById('user-coins');
+
+            if (loginEl) loginEl.textContent = currentUser.login;
+            if (rankEl) rankEl.textContent = getRankName(currentUser.rank);
+            if (coinsEl) coinsEl.textContent = currentUser.coins;
+
+            // Обновляем все страницы
+            if (document.getElementById('balance-display')) {
+                document.getElementById('balance-display').textContent = currentUser.coins;
+            }
+            if (document.getElementById('user-coins-shop')) {
+                document.getElementById('user-coins-shop').textContent = currentUser.coins;
+            }
+            if (document.getElementById('user-coins-inventory')) {
+                document.getElementById('user-coins-inventory').textContent = currentUser.coins;
+            }
+            if (document.getElementById('user-coins-roulette')) {
+                document.getElementById('user-coins-roulette').textContent = currentUser.coins;
+            }
+            if (document.getElementById('user-coins-settings')) {
+                document.getElementById('user-coins-settings').textContent = currentUser.coins;
+            }
+            if (document.getElementById('user-coins-chat')) {
+                document.getElementById('user-coins-chat').textContent = currentUser.coins;
+            }
+
+            // Для инвентаря
+            updateInventory();
+        }
+
+        // Получить название ранга
+        function getRankName(rank) {
+            const ranks = ["Новичок", "Друг", "Герой", "Легенда", "Администратор"];
+            return ranks[rank - 1] || "Неизвестный";
+        }
+
+        // Вход
+        function handleLogin(e) {
+            e.preventDefault();
+            const login = document.getElementById('login-input').value.trim();
+            const password = document.getElementById('password-input').value;
+
+            if (!login || !password) {
+                showError("Введите логин и пароль");
+                return;
+            }
+
+            // Проверяем админа
+            if (login === 'admin' && password === 'metla2025') {
+                currentUser = {
+                    login: login,
+                    coins: 35, // Первый вход = 35 монет
+                    rank: 5,
+                    avatar: 'avatars/default.png',
+                    frame: 'frames/default-frame.png',
+                    last_login: new Date().toISOString().split('T')[0],
+                    purchased: [],
+                    rewards: []
+                };
+                sessionStorage.setItem('user', JSON.stringify(currentUser));
+                updateUserUI();
+                showSection('home');
+                return;
+            }
+
+            // Регистрация нового пользователя
+            currentUser = {
+                login: login,
+                password: password, // В реальном проекте хэшируйте!
+                coins: 35, // Первый вход = 35 монет
+                rank: 1,
+                avatar: 'avatars/default.png',
+                frame: 'frames/default-frame.png',
+                last_login: new Date().toISOString().split('T')[0],
+                purchased: [],
+                rewards: []
+            };
+            sessionStorage.setItem('user', JSON.stringify(currentUser));
+            updateUserUI();
+            showSection('home');
+        }
+
+        // Показать ошибку
+        function showError(msg) {
+            const el = document.getElementById('error-message');
+            if (el) {
+                el.textContent = msg;
+                el.style.display = 'block';
+            }
+        }
+
+        // Таймер обратного отсчета
+        function updateCountdown() {
+            const now = new Date();
+            const newYear = new Date(2026, 0, 1, 0, 0, 0);
+            const diff = newYear - now;
+            if (diff <= 0) {
+                document.getElementById('countdown').textContent = "С Новым Годом! 🎉";
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('countdown').textContent = `${days}д ${hours}ч до Нового года!`;
+            setTimeout(updateCountdown, 60000);
+        }
+
+        // Админы онлайн
+        function updateAdminsOnline() {
+            const admins = ['admin']; // Заглушка
+            const el = document.getElementById('admins-online');
+            if (el) {
+                const list = admins.length ? admins.join(', ') : 'не в сети';
+                el.innerHTML = `<h3>Администраторы онлайн:</h3><p>${list}</p>`;
+            }
+        }
+
+        // Смена цветовой схемы
+        function applyTheme(color) {
+            document.documentElement.style.setProperty('--theme-color', color);
+        }
+
+        // Сохранение настроек
+        function saveSettings() {
+            const themeColor = document.getElementById('theme-color').value;
+            const telegramHandle = document.getElementById('telegram-handle').value;
+            const mobileLayout = document.getElementById('mobile-layout').checked;
+
+            applyTheme(themeColor);
+            if (mobileLayout) {
+                document.body.classList.add('mobile-layout');
+            } else {
+                document.body.classList.remove('mobile-layout');
+            }
+
+            alert("Настройки сохранены!");
+        }
+
+        // Отображение товаров
+        function renderProducts() {
+            const container = document.getElementById('products-grid');
+            if (!container) return;
+
+            let sortedProducts = [...products];
+
+            const sortValue = document.getElementById('sort-select')?.value;
+            if (sortValue === 'price-asc') {
+                sortedProducts.sort((a, b) => a.price - b.price);
+            } else if (sortValue === 'price-desc') {
+                sortedProducts.sort((a, b) => b.price - a.price);
+            } else if (sortValue === 'name') {
+                sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+            }
+
+            container.innerHTML = sortedProducts.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <div class="price">${product.price} монет</div>
+                    <button onclick="buyProduct(${product.id})">Купить</button>
+                </div>
+            `).join('');
+        }
+
+        // Покупка товара
+        function buyProduct(productId) {
+            if (!currentUser) {
+                alert("Войдите, чтобы купить товар");
+                return;
+            }
+
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            if (currentUser.coins < product.price) {
+                alert("Недостаточно монет!");
+                return;
+            }
+
+            currentUser.coins -= product.price;
+            currentUser.purchased = currentUser.purchased || [];
+            currentUser.purchased.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                date: new Date().toLocaleString()
+            });
+
+            sessionStorage.setItem('user', JSON.stringify(currentUser));
+            updateUserUI();
+            renderProducts(); // Обновляем магазин
+            alert(`Вы купили "${product.name}" за ${product.price} монет!`);
+        }
+
+        // Вращение колеса
+        function spinWheel() {
+            if (!currentUser) {
+                alert("Войдите, чтобы крутить рулетку");
+                return;
+            }
+
+            if (currentUser.coins < 150) {
+                alert("Недостаточно монет! Нужно 150 монет");
+                return;
+            }
+
+            const wheel = document.getElementById('wheel');
+            const resultEl = document.getElementById('result');
+
+            // Призы
+            const prizes = [
+                { name: "FC Pack", image: "https://www.futwiz.com/assets/images/fifa23/packs/gold.png", value: 1 },
+                { name: "Новогодний шар", image: "https://via.placeholder.com/250/ffffff/333333?text=Ball", value: 10 },
+                { name: "Подарочная коробка", image: "https://via.placeholder.com/250/ffffff/333333?text=Box", value: 25 },
+                { name: "50 монет", image: "https://via.placeholder.com/50/ffffff/333333?text=💰", value: 50 },
+                { name: "100 монет", image: "https://via.placeholder.com/50/ffffff/333333?text=💰", value: 100 },
+                { name: "Ранжирование", image: "https://via.placeholder.com/50/ffffff/333333?text=⭐", value: 0 }
+            ];
+
+            // Выбираем случайный приз
+            const prizeIndex = Math.floor(Math.random() * prizes.length);
+            const prize = prizes[prizeIndex];
+
+            // Анимация вращения
+            const rotation = 360 * 5 + (prizeIndex * (360 / prizes.length)); // 5 полных оборотов + позиция приза
+            wheel.style.transform = `rotate(${rotation}deg)`;
+
+            // После завершения анимации
+            setTimeout(() => {
+                currentUser.coins -= 150;
+                currentUser.purchased = currentUser.purchased || [];
+                currentUser.purchased.push({
+                    id: Date.now(),
+                    name: prize.name,
+                    price: 150,
+                    date: new Date().toLocaleString()
+                });
+
+                // Если приз — монеты, добавляем их
+                if (prize.value > 0) {
+                    currentUser.coins += prize.value;
+                }
+
+                // Если приз — ранг, повышаем ранг
+                if (prize.name === "Ранжирование") {
+                    if (currentUser.rank < 5) {
+                        currentUser.rank++;
+                    }
+                }
+
+                sessionStorage.setItem('user', JSON.stringify(currentUser));
+                updateUserUI();
+
+                resultEl.innerHTML = `
+                    <h3>🎉 Вы выиграли: ${prize.name}!</h3>
+                    <img src="${prize.image}" alt="${prize.name}" style="max-width: 100px; margin: 10px 0;">
+                `;
+            }, 5000); // 5 секунд — длительность анимации
+
+            // Блокируем кнопку на время вращения
+            document.getElementById('spin-button').disabled = true;
+            setTimeout(() => {
+                document.getElementById('spin-button').disabled = false;
+            }, 5000);
+        }
+
+        // Обновление инвентаря
+        function updateInventory() {
+            if (!currentUser) return;
+
+            const balanceEl = document.getElementById('balance-display');
+            const purchasedEl = document.getElementById('purchased-items');
+            const rewardsEl = document.getElementById('rewards-items');
+
+            if (balanceEl) balanceEl.textContent = currentUser.coins;
+
+            if (purchasedEl) {
+                if (!currentUser.purchased || currentUser.purchased.length === 0) {
+                    purchasedEl.innerHTML = '<p>Пока ничего не куплено.</p>';
+                } else {
+                    purchasedEl.innerHTML = currentUser.purchased.map(item => `
+                        <div class="item">
+                            <img src="${getProductImage(item.name)}" alt="${item.name}" style="width: 50px; vertical-align: middle;">
+                            <span>${item.name} — ${item.price} монет (${item.date})</span>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            if (rewardsEl) {
+                if (!currentUser.rewards || currentUser.rewards.length === 0) {
+                    rewardsEl.innerHTML = '<p>Пока нет наград.</p>';
+                } else {
+                    rewardsEl.innerHTML = currentUser.rewards.map(reward => `
+                        <div class="item">
+                            <img src="${reward.image || 'https://via.placeholder.com/50/ffffff/333333?text=💰'}" alt="${reward.name}" style="width: 50px; vertical-align: middle;">
+                            <span>${reward.name} — ${reward.description || ''} (${reward.date})</span>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        // Получить изображение товара по имени
+        function getProductImage(name) {
+            const product = products.find(p => p.name === name);
+            return product ? product.image : 'https://via.placeholder.com/50/ffffff/333333?text=💰';
+        }
+
+        // Показать секцию
+        function showSection(sectionId) {
+            // Скрываем все секции
+            document.querySelectorAll('.page').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Показываем выбранную
+            document.getElementById(sectionId).style.display = 'block';
+
+            // Обновляем UI
+            updateUserUI();
+
+            // Если это магазин — рендерим товары
+            if (sectionId === 'shop') {
+                renderProducts();
+            }
+
+            // Если это рулетка — инициализируем
+            if (sectionId === 'roulette') {
+                document.getElementById('spin-button').addEventListener('click', spinWheel);
+            }
+
+            // Если это инвентарь — обновляем
+            if (sectionId === 'inventory') {
+                updateInventory();
+            }
+
+            // Если это настройки — устанавливаем значения
+            if (sectionId === 'settings') {
+                document.getElementById('theme-color').value = '#ff6b6b';
+                document.getElementById('telegram-handle').value = '@skywakker';
+                document.getElementById('mobile-layout').checked = false;
+                document.getElementById('save-settings').addEventListener('click', saveSettings);
+            }
+
+            // Если это вход — инициализируем форму
+            if (sectionId === 'login') {
+                document.getElementById('login-form').addEventListener('submit', handleLogin);
+                document.getElementById('register-btn').addEventListener('click', () => {
+                    alert("Регистрация происходит при первом входе.");
+                });
+            }
+
+            // Прокручиваем вверх
+            window.scrollTo(0, 0);
+        }
+
+        // Установка обработчиков событий
+        function setupEventListeners() {
+            // Форма входа
+            if (document.getElementById('login-form')) {
+                document.getElementById('login-form').addEventListener('submit', handleLogin);
+                document.getElementById('register-btn').addEventListener('click', () => {
+                    alert("Регистрация происходит при первом входе.");
+                });
+            }
+
+            // Сортировка в магазине
+            if (document.getElementById('sort-select')) {
+                document.getElementById('sort-select').addEventListener('change', renderProducts);
+            }
+
+            // Кнопка "Крутить" в рулетке
+            if (document.getElementById('spin-button')) {
+                document.getElementById('spin-button').addEventListener('click', spinWheel);
+            }
+
+            // Сохранение настроек
+            if (document.getElementById('save-settings')) {
+                document.getElementById('save-settings').addEventListener('click', saveSettings);
+            }
+
+            // Анимация перехода
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const href = link.getAttribute('href');
+                    const sectionId = href.substring(1);
+                    showSection(sectionId);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
