@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-text="site_title">🎄 Новогоднее Приключение 2026</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <!-- Боковое меню -->
+    <aside class="sidebar">
+        <div class="icon">
+            <a href="index.html" title="Главная">
+                <img src="images/icons/home.png" alt="Главная" />
+            </a>
+        </div>
+        <div class="icon">
+            <a href="shop.html" title="Магазин">
+                <img src="images/icons/shop.png" alt="Магазин" />
+            </a>
+        </div>
+        <div class="icon">
+            <a href="inventory.html" title="Инвентарь">
+                <img src="images/icons/tasks.png" alt="Инвентарь" />
+            </a>
+        </div>
+        <div class="icon">
+            <a href="roulette.html" title="Рулетка">
+                <img src="images/icons/chat.png" alt="Рулетка" />
+            </a>
+        </div>
+        <div class="icon">
+            <a href="settings.html" title="Настройки">
+                <img src="images/icons/settings.png" alt="Настройки" />
+            </a>
+        </div>
+    </aside>
+
+    <!-- Основной контент -->
+    <main class="content">
+        <header>
+            <h1 id="site-title" data-text="site_title">🎄 Новогоднее Приключение 2026</h1>
+            <div class="user-info" id="user-info">
+                Привет, <span id="user-login">Гость</span> | 
+                Ранг: <span id="user-rank">Новичок</span> | 
+                <span id="user-coins">0</span> монет
+            </div>
+        </header>
+
+        <!-- Герой-блок с таймером -->
+        <section class="hero">
+            <div class="snow-bg"></div>
+            <h2 id="welcome-message" data-text="welcome_message">
+                Добро пожаловать!
+            </h2>
+            <div id="countdown" class="countdown">Загрузка...</div>
+        </section>
+
+        <!-- Быстрые ссылки -->
+        <section class="info-columns">
+            <div class="column">
+                <h3 data-text="shop_title">Магазин подарков</h3>
+                <p>Покупайте подарки за монеты.</p>
+                <a href="shop.html" class="btn">Перейти в магазин →</a>
+            </div>
+            <div class="column">
+                <h3 data-text="roulette_title">Рулетка призов</h3>
+                <p>Крутите колесо за 150 монет!</p>
+                <a href="roulette.html" class="btn">Крутить рулетку →</a>
+            </div>
+            <div class="column">
+                <h3 data-text="inventory_title">Инвентарь</h3>
+                <p>Просмотрите награды и покупки.</p>
+                <a href="inventory.html" class="btn">Открыть инвентарь →</a>
+            </div>
+        </section>
+
+        <!-- Админы онлайн -->
+        <section class="admins-online" id="admins-online">
+            <h3 data-text="admin_online">Администраторы онлайн:</h3>
+            <p>Загрузка...</p>
+        </section>
+    </main>
+</body>
+</html>
