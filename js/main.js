@@ -1,7 +1,7 @@
 /**
- * Новогодний сайт 2026 — main.js
- * Все данные хранятся в sessionStorage.
- * Автор: Tihon Metelkin
+ * Новогодний сайт 2026 — main.js (версия 2.0)
+ * Защита от доступа без входа.
+ * Все переходы через JS — без 404.
  */
 
 const app = {
@@ -18,10 +18,16 @@ const app = {
     // Инициализация приложения
     init() {
         this.loadUser();
-        this.renderAll();
         this.bindEvents();
-        this.updateCountdown();
-        setInterval(() => this.updateCountdown(), 60000);
+
+        // Проверяем, авторизован ли пользователь
+        if (!this.state.currentUser) {
+            this.showSection('login');
+        } else {
+            this.renderAll();
+            this.updateCountdown();
+            setInterval(() => this.updateCountdown(), 60000);
+        }
     },
 
     // Загрузка пользователя из sessionStorage
@@ -78,19 +84,26 @@ const app = {
 
     // Показать секцию
     showSection(sectionId) {
+        // Если не авторизован — показываем только login
+        if (!this.state.currentUser && sectionId !== 'login') {
+            this.showSection('login');
+            return;
+        }
+
+        // Скрываем все секции
         document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
+
+        // Показываем выбранную
         document.getElementById(sectionId).style.display = 'block';
+
+        // Прокручиваем вверх
         window.scrollTo(0, 0);
 
         // Специфическая логика для секций
         if (sectionId === 'shop') this.renderShop();
         if (sectionId === 'inventory') this.renderInventory();
-        if (sectionId === 'login' && !this.state.currentUser) return;
-        
-        // Если не авторизован — показываем логин
-        if (!this.state.currentUser && sectionId !== 'login') {
-            this.showSection('login');
-        }
+        if (sectionId === 'roulette') this.setupRoulette();
+        if (sectionId === 'settings') this.setupSettings();
     },
 
     // Вход в систему
@@ -209,6 +222,20 @@ const app = {
             : '<p>Пока нет наград.</p>';
     },
 
+    // Установка событий для рулетки
+    setupRoulette() {
+        document.getElementById('spin-button').addEventListener('click', () => this.spinWheel());
+    },
+
+    // Установка событий для настроек
+    setupSettings() {
+        document.getElementById('save-settings').addEventListener('click', () => {
+            const color = document.getElementById('theme-color').value;
+            document.documentElement.style.setProperty('--theme-color', color);
+            alert("Настройки сохранены!");
+        });
+    },
+
     // Обновление таймера
     updateCountdown() {
         const now = new Date();
@@ -233,24 +260,7 @@ const app = {
             if (login && pass) this.login(login, pass);
         });
 
-        // Рулетка
-        document.getElementById('spin-button')?.addEventListener('click', () => this.spinWheel());
-
-        // Настройки
-        document.getElementById('save-settings')?.addEventListener('click', () => {
-            const color = document.getElementById('theme-color').value;
-            document.documentElement.style.setProperty('--theme-color', color);
-            alert("Настройки сохранены!");
-        });
-
-        // Навигация
-        document.querySelectorAll('.sidebar a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = link.getAttribute('href').substring(1);
-                this.showSection(section);
-            });
-        });
+        // Навигация по боковому меню — уже сделана через onclick
     }
 };
 
